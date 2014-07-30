@@ -27,6 +27,14 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/menu', {
+        templateUrl: 'views/menu.html',
+        controller: 'MenuCtrl'
+      })
+      .when('/checkout', {
+        templateUrl: 'views/checkout.html',
+        controller: 'CheckoutCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
