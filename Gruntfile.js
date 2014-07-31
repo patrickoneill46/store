@@ -34,19 +34,20 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
         express: {
-            files:  [ '**/*.js' ],
+            files:  [ '<%= yeoman.app %>/scripts/{,*/}*.js'],
             tasks:  [ 'express:dev' ],
             options: {
+                livereload: '<%= connect.options.livereload %>',
                 spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
             }
         },
-      js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        }
-      },
+//      js: {
+//        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+//        tasks: ['newer:jshint:all'],
+//        options: {
+//          livereload: '<%= connect.options.livereload %>'
+//        }
+//      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
