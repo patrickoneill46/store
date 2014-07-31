@@ -1,1 +1,16 @@
-<p>This is the menu view.</p>
+<div id="menuContainer" class="col-xs-12">
+    <ul ng-repeat="item in items" class="col-xs-8">
+        <li>
+            <p>{{item.name}}</p>
+            <p>{{item.price}}</p>
+            <div class="btn-success" ng-click="addItem(item)">Add</div>
+            <div class="btn-danger" ng-click="decrementItem(item)">Remove</div>
+        </li>
+    </ul>
+    <ul class="col-xs-4" ng-repeat="cartItem in cartContents">
+        <span>{{cartItem.item.name}}</span> - <span>{{cartItem.item.price}}</span> - <span>{{cartItem.quantity}}</span>
+
+    </ul>
+</div>
+
+

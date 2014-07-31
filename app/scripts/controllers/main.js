@@ -8,10 +8,13 @@
  * Controller of the storeApp
  */
 angular.module('storeApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', ['cartService', '$rootScope', '$scope', function (cartService, $rootScope, $scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+
+    $rootScope.cart = cartService;
+
+  }]);
