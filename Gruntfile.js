@@ -33,6 +33,13 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
+        express: {
+            files:  [ '**/*.js' ],
+            tasks:  [ 'express:dev' ],
+            options: {
+                spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
+            }
+        },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
@@ -62,6 +69,16 @@ module.exports = function (grunt) {
         ]
       }
     },
+
+      express: {
+          dev: {
+              options: {
+                  script: 'server/app.js',
+                  livereload: true
+              }
+          }
+      },
+
 
     // The actual grunt server settings
     connect: {
@@ -364,12 +381,13 @@ module.exports = function (grunt) {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
-    grunt.task.run([
+      grunt.task.run([
       'clean:server',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
-      'connect:livereload',
+      //'connect:livereload',
+          'express:dev',
       'watch'
     ]);
   });
