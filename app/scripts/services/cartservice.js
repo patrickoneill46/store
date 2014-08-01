@@ -44,7 +44,14 @@ angular.module('storeApp')
     function decrementItem(itemKey, decrementAmount){
 
         decrementAmount = decrementAmount || 1;
-        cartContents[itemKey].quantity -= decrementAmount;
+
+        if (cartContents[itemKey].quantity <= decrementAmount){
+
+            removeItem(itemKey);
+        }
+        else {
+            cartContents[itemKey].quantity -= decrementAmount;
+        }
     }
 
     function removeItem (itemKey){
