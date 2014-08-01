@@ -7,6 +7,9 @@
             <div class="btn-danger" ng-click="decrementItem(item)">Remove</div>
         </li>
     </ul>
+    <div ng-repeat="item in items" class="col-xs-8">
+        <menu-item item="item"></menu-item>
+    </div>
     <ul class="col-xs-4" ng-repeat="cartItem in cartContents">
         <span>{{cartItem.item.name}}</span> - <span>{{cartItem.item.price}}</span> - <span>{{cartItem.quantity}}</span>
 
