@@ -22,14 +22,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="#/about">About</a></li>
-          <li><a ng-href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">store</h3>
-      </div>
+       <ng-include src = "'views/partials/navbar.html'"></ng-include>
 
       <div ng-view=""></div>
 
