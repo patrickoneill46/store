@@ -5,7 +5,7 @@ var http = require('http'),
     mongoose = require('mongoose');
 
 
-var dbURI = 'localhost', dbPort = 27017, dbName = 'test';
+var dbURI = 'localhost', dbPort = 27017, dbName = 'store';
 mongoose.connect('mongodb://' + dbURI + '/' + dbName);
 
 var db = mongoose.connection;
