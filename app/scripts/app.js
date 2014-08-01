@@ -35,6 +35,10 @@ angular
         templateUrl: 'views/checkout.html',
         controller: 'CheckoutCtrl'
       })
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'AdminCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

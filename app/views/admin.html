@@ -1,0 +1,24 @@
+<form ng-submit="addItem(addProductForm)" name="addProductForm" role="form">
+    <div class="form-group">
+        <label for="product-name">Product Name</label>
+        <input type="text" class="form-control"  name="product-name" ng-model="productName">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" name="description" ng-model="description"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" name="price" ng-model="price">
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select class="form-control" name="category" ng-model="category">
+            <option ng-repeat="category in categories">{{category}}</option>
+        </select>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" name="available" ng-model="available"> Available</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
