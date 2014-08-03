@@ -22,7 +22,10 @@ module.exports = function(mongoose) {
                 res.send(err);
             } else {
                 console.log('saved', product);
-                res.send('saved');
+                res.send({
+                    status: 'saved',
+                    addProduct: product
+                });
             }
 
         });

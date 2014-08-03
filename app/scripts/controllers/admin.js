@@ -26,18 +26,25 @@ angular.module('storeApp')
 
             $scope.submitted = true;
 
-
+            if(form.$invalid){
+                return;
+            }
 
             adminService.product.add({
                 name: $scope.productName,
                 description: $scope.description,
-                price: $scope.price,
+                price: $scope.price
 
-            })
+            }, function(addedProduct, responseHeaders){
+
+                console.log(addedProduct, responseHeaders)
+            });
 
 
             //adminService.product.$add()
         };
+
+        $scope.products = adminService.product.query();
 
 
   }]);
