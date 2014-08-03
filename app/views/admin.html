@@ -28,4 +28,21 @@
         </div>
         <button type="submit" class="btn btn-primary" ng-disabled="progress.active()">Save</button>
     </form>
+
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Price</th>
+        </thead>
+        <tr ng-repeat="product in products">
+            <td>{{product._id}}</td>
+            <td>{{product.productName}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+    </table>
 </div>

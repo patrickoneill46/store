@@ -4,8 +4,9 @@ module.exports = function(mongoose) {
         ObjectId = Schema.ObjectId,
         productSchema = new Schema({
             //"_id": ObjectId,
-            "name": "String",
+            "productName": "String",
             "description": "String",
+            "category": "String",
             "price": "number"
         });
 
@@ -42,6 +43,11 @@ module.exports = function(mongoose) {
 
     function getProduct(req, res){
 
+        Product.find({}, function(err, products){
+
+            res.send(products);
+
+        });
     }
 
     return {
