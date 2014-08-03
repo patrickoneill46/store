@@ -1,34 +1,5 @@
 <div id="productContainer">
-    <div id="messages" class="alert alert-success" ng-show="messages" ng-bind="messages"></div>
-    <div ng-show="progress.active()" style="color: red; font-size: 50px;">Sending&hellip;</div>
-    <form ng-submit="addItem(addProductForm)" name="addProductForm" novalidate role="form">
-        <div class="form-group">
-            <label for="product-name">Product Name</label>
-            <span class="label label-danger" ng-show="submitted && addProductForm.productName.$error.required">Required!</span>
-            <input type="text" class="form-control"  name="productName" ng-model="productName" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" name="description" ng-model="description"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="price">Price</label>
-            <span class="label label-danger" ng-show="submitted && addProductForm.price.$error.required">Required!</span>
-            <input type="text" class="form-control" name="price" ng-model="price" required>
-        </div>
-        <div class="form-group">
-            <label for="category">Category</label>
-            <span class="label label-danger" ng-show="submitted && addProductForm.category.$error.required">Required!</span>
-            <select class="form-control" name="category" ng-model="category" required>
-                <option ng-repeat="category in categories">{{category}}</option>
-            </select>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="available" ng-model="available"> Available</label>
-        </div>
-        <button type="submit" class="btn btn-primary" ng-disabled="progress.active()">Save</button>
-    </form>
-
+    <product-form submit-form="addItem" submitted="submitted" categories="categories" form-data="newProduct"></product-form>
     <table>
         <thead>
             <th>Id</th>

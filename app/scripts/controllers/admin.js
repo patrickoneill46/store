@@ -14,6 +14,7 @@ angular.module('storeApp')
       'AngularJS',
       'Karma'
     ];
+        $scope.newProduct = {};
 
         $scope.categories = [
             'Starters',
@@ -25,19 +26,16 @@ angular.module('storeApp')
         $scope.addItem = function(form){
 
             $scope.submitted = true;
+            console.log('adding item...');
 
             if(form.$invalid){
                 return;
             }
 
-            adminService.product.add({
-                name: $scope.productName,
-                description: $scope.description,
-                price: $scope.price
+            adminService.product.add($scope.newProduct, function(response, responseHeaders){
 
-            }, function(addedProduct, responseHeaders){
+                console.log(response);
 
-                console.log(addedProduct, responseHeaders)
             });
 
 
