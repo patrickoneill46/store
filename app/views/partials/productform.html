@@ -24,7 +24,7 @@
             </select>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="available" ng-model="available"> Available</label>
+            <label><input type="checkbox" name="available" ng-model="formData.available"> Available</label>
         </div>
         <button type="submit" class="btn btn-primary" ng-disabled="progress.active(addProductForm)" ng-click="submitForm(addProductForm )">Save</button>
         <button class="btn btn-danger" ng-if="formData._id" ng-click="delete(formData._id)">Delete</button>

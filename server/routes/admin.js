@@ -7,7 +7,8 @@ module.exports = function(mongoose) {
             "productName": "String",
             "description": "String",
             "category": "String",
-            "price": "number"
+            "price": "number",
+            "available": "Boolean"
         });
 
     var Product = mongoose.model('Product', productSchema, 'products');

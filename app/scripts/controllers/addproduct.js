@@ -8,7 +8,7 @@
  * Controller of the storeApp
  */
 angular.module('storeApp')
-  .controller('AddproductCtrl', ['$scope', 'adminService', function ($scope, adminService) {
+  .controller('AddproductCtrl', ['$scope', '$location', 'adminService', function ($scope, $location,adminService) {
 
         $scope.newProduct = {};
         $scope.categories = [
@@ -30,7 +30,7 @@ angular.module('storeApp')
             adminService.product.add($scope.newProduct, function(response, responseHeaders){
 
                 console.log(response);
-
+                $location.path('/admin');
             });
 
 
