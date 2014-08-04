@@ -107,11 +107,25 @@ module.exports = function(mongoose) {
 
     }
 
+    function uploadImage(req,res){
+
+        console.log('uploading image...');
+        res.send('stub, not uploaded');
+
+    }
+
+    function getImage(req,res){
+        console.log('getting image...');
+        res.send('stub, no image');
+    }
+
     return {
         addProduct: addProduct,
         removeProduct: removeProduct,
         updateProduct: updateProduct,
-        getProduct: getProduct
+        getProduct: getProduct,
+        uploadImage: uploadImage,
+        getImage: getImage
     }
 
 }
