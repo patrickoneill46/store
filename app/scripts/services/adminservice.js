@@ -16,20 +16,19 @@ angular.module('storeApp')
     return {
 
         product: $resource('/admin/product/:productId', {
-            productId: 'new'
+            productId: '@_id'
         }, {
             add: {
-                method: 'POST',
-                params: {
-                    productId: 'newproduct'
-                }
+                method: 'POST'
             },
             update: {
                 method: 'PUT'
-
             },
             remove: {
                 method: 'DELETE'
+            },
+            get: {
+                method: 'GET'
             }
         })
 

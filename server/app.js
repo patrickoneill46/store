@@ -26,7 +26,8 @@ app.use('/bower_components', express.static(__dirname + '/../bower_components/')
 app.use(express.static(__dirname + '/../app/'));
 
 app.route('/checkout').post(checkout.processPayment);
-app.route('/admin/product/:productId')
+
+app.route('/admin/product/:productId?')
     .post(admin.addProduct)
     .delete(admin.removeProduct)
     .put(admin.updateProduct)

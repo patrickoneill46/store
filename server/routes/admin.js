@@ -39,15 +39,55 @@ module.exports = function(mongoose) {
 
     function updateProduct(req,res){
 
+        console.log('updating', req.body);
+
+        Product.findByIdAndUpdate(req.params.productId, {$set: req.body}, function(err, product){
+
+            if (err){
+                console.log('error', err);
+                res.send(err);
+            } else {
+                res.send({
+                    status: 'udpated',
+                    product: product
+                });
+            }
+        });
     }
 
     function getProduct(req, res){
 
-        Product.find({}, function(err, products){
+        var queryObj = {};
 
-            res.send(products);
+        if (req.params.productId){
+            queryObj._id = req.params.productId;
 
-        });
+            Product.findById(req.params.productId, function(err, product){
+
+                console.log('finding by id');
+                if(err){
+                    res.send(err);
+                } else {
+                    res.send(product);
+                }
+
+            });
+
+
+
+        } else {
+            Product.find({}, function(err, products){
+
+                if(err){
+                    console.log(err);
+                    res.send(err);
+                } else {
+                    res.send(products);
+                }
+            });
+        }
+
+
     }
 
     return {

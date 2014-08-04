@@ -39,6 +39,14 @@ angular
         templateUrl: 'views/admin.html',
         controller: 'AdminCtrl'
       })
+        .when('/admin/addProduct/', {
+            templateUrl: 'views/admin/addProduct.html',
+            controller: 'AdminCtrl'
+        })
+        .when('/admin/editProduct/:productId', {
+            templateUrl: 'views/admin/editProduct.html',
+            controller: 'AdminCtrl'
+        })
       .otherwise({
         redirectTo: '/'
       });
