@@ -8,7 +8,7 @@
  * Controller of the storeApp
  */
 angular.module('storeApp')
-  .controller('EditproductCtrl', ['$scope', '$routeParams', 'adminService',  function ($scope, $routeParams, adminService) {
+  .controller('EditproductCtrl', ['$scope', '$routeParams', '$location', 'adminService',  function ($scope, $routeParams, $location, adminService) {
 
         $scope.editProduct = {};
         $scope.categories = [
@@ -38,6 +38,7 @@ angular.module('storeApp')
             adminService.product.update($scope.editProduct, function(response, responseHeaders){
 
                 console.log(response);
+                $location.path('/admin');
             });
         };
 
@@ -48,9 +49,9 @@ angular.module('storeApp')
             adminService.product.delete({productId: productId}, function(response, responseHeaders){
 
                 console.log(response);
-
+                $location.path('/admin');
             });
 
-        }
+        };
 
   }]);
