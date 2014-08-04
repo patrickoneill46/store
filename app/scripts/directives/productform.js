@@ -15,6 +15,7 @@ angular.module('storeApp')
       },
       scope: {
           submitForm: '=',
+          delete: '=',
           submitted: '=',
           categories: '=',
           formData: '='

@@ -35,6 +35,22 @@ module.exports = function(mongoose) {
 
     function removeProduct(req,res){
 
+        console.log('removing product', req.params);
+
+        Product.remove({_id: req.params.productId}, function(err){
+
+            if(err){
+                res.send(err);
+            } else {
+
+                res.send({
+                    status: 'deleted',
+                    productId: req.body.productId
+                });
+            }
+
+        });
+
     }
 
     function updateProduct(req,res){

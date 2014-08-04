@@ -1,19 +1,22 @@
 <div id="productContainer">
-    <product-form submit-form="addItem" submitted="submitted" categories="categories" form-data="newProduct"></product-form>
-    <table>
+    <table class="table table-striped">
         <thead>
-            <th>Id</th>
             <th>Name</th>
             <th>Description</th>
             <th>Category</th>
             <th>Price</th>
+            <th>Edit</th>
         </thead>
         <tr ng-repeat="product in products">
-            <td>{{product._id}}</td>
             <td>{{product.productName}}</td>
             <td>{{product.description}}</td>
             <td>{{product.category}}</td>
-            <td>{{product.price}}</td>
+            <td>{{product.price}}</td>,
+            <td>
+                <a ng-href="#/admin/editProduct/{{product._id}}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+            </td>
         </tr>
     </table>
 </div>

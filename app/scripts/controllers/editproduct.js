@@ -41,4 +41,16 @@ angular.module('storeApp')
             });
         };
 
+        $scope.deleteItem = function(productId) {
+
+            $scope.submitted = true;
+
+            adminService.product.delete({productId: productId}, function(response, responseHeaders){
+
+                console.log(response);
+
+            });
+
+        }
+
   }]);
