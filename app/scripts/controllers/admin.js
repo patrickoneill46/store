@@ -66,7 +66,7 @@ angular.module('storeApp')
 
                 console.log(response);
             });
-        }
+        };
 
         $scope.products = adminService.product.query();
 

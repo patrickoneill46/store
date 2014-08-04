@@ -41,11 +41,11 @@ angular
       })
         .when('/admin/addProduct/', {
             templateUrl: 'views/admin/addProduct.html',
-            controller: 'AdminCtrl'
+            controller: 'AddproductCtrl'
         })
         .when('/admin/editProduct/:productId', {
             templateUrl: 'views/admin/editProduct.html',
-            controller: 'AdminCtrl'
+            controller: 'EditproductCtrl'
         })
       .otherwise({
         redirectTo: '/'
