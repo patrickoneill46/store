@@ -2,26 +2,30 @@ var http = require('http'),
     express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    mongoose = require('mongoose');
-
+    multiparty = require('multiparty'),
+    mongoose = require('mongoose'),
+    Grid = require('gridfs-stream');
 
 var dbURI = 'localhost', dbPort = 27017, dbName = 'store';
-mongoose.connect('mongodb://' + dbURI + '/' + dbName);
+var conn = mongoose.createConnection('mongodb://' + dbURI + '/' + dbName);
 
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function() {
+conn.on('error', console.error.bind(console, 'connection error'));
+conn.once('open', function (){
     console.log('connected to database');
+
 });
 
-var checkout = require('./routes/checkout')(mongoose),
-    admin = require('./routes/admin')(mongoose);
+var checkout = require('./routes/checkout')(mongoose, conn),
+    admin = require('./routes/admin')(mongoose, conn);
+
 
 var app = express();
 
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 app.use('/bower_components', express.static(__dirname + '/../bower_components/'));
 app.use(express.static(__dirname + '/../app/'));
 

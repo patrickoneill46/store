@@ -1,6 +1,11 @@
-module.exports = function(mongoose) {
+var multiparty = require('multiparty'),
+    fs = require('fs'),
+    Grid = require('gridfs-stream');
 
-    var Schema = mongoose.Schema,
+module.exports = function(mongoose, conn) {
+
+    var gfs = Grid(conn.db, mongoose.mongo),
+        Schema = mongoose.Schema,
         ObjectId = Schema.ObjectId,
         productSchema = new Schema({
             //"_id": ObjectId,
@@ -109,8 +114,33 @@ module.exports = function(mongoose) {
 
     function uploadImage(req,res){
 
-        console.log('uploading image...');
-        res.send('stub, not uploaded');
+        var form = new multiparty.Form();
+
+        form.parse(req, function(err, fields, files) {
+
+
+            if(files) {
+
+                var file = files.file[0];
+
+                var writeStream = gfs.createWriteStream({
+                    filename: 'my_file.txt'
+                });
+
+                writeStream.on('close', function(file) {
+                    console.log('upload complete', file);
+                });
+
+                fs.createReadStream(file.path).pipe(writeStream);
+
+            } else {
+
+                res.send('no images recieved');
+                console.log('No images recieved');
+
+            }
+
+        });
 
     }
 
