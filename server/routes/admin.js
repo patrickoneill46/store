@@ -145,8 +145,12 @@ module.exports = function(mongoose, conn) {
     }
 
     function getImage(req,res){
-        console.log('getting image...');
-        res.send('stub, no image');
+        var readstream = gfs.createReadStream({
+            _id: '53e0cb4cca769eba50c151d0'
+        });
+
+        readstream.pipe(res);
+
     }
 
     return {
