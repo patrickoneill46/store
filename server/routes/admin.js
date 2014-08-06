@@ -4,8 +4,7 @@ var multiparty = require('multiparty'),
 
 module.exports = function(mongoose, conn) {
 
-    var gfs = Grid(conn.db, mongoose.mongo),
-        Schema = mongoose.Schema,
+    var Schema = mongoose.Schema,
         ObjectId = Schema.ObjectId,
         productSchema = new Schema({
             //"_id": ObjectId,
@@ -16,7 +15,7 @@ module.exports = function(mongoose, conn) {
             "available": "Boolean"
         });
 
-    var Product = mongoose.model('Product', productSchema, 'products');
+    var Product = conn.model('Product', productSchema, 'products');
 
     function addProduct (req, res){
 
@@ -82,7 +81,6 @@ module.exports = function(mongoose, conn) {
         var queryObj = {};
 
         if (req.params.productId){
-            queryObj._id = req.params.productId;
 
             Product.findById(req.params.productId, function(err, product){
 
@@ -95,21 +93,21 @@ module.exports = function(mongoose, conn) {
 
             });
 
-
-
         } else {
-            Product.find({}, function(err, products){
+
+            queryObj = req.query;
+
+            Product.find(queryObj, function(err, products){
 
                 if(err){
                     console.log(err);
                     res.send(err);
                 } else {
+                    console.log(products);
                     res.send(products);
                 }
             });
         }
-
-
     }
 
     function uploadImage(req,res){
@@ -118,17 +116,35 @@ module.exports = function(mongoose, conn) {
 
         form.parse(req, function(err, fields, files) {
 
-
             if(files) {
 
                 var file = files.file[0];
 
                 var writeStream = gfs.createWriteStream({
-                    filename: 'my_file.txt'
+                    filename: 'my_file.txt',
+                    productId: req.params.productId || 'noproductid'
                 });
 
                 writeStream.on('close', function(file) {
                     console.log('upload complete', file);
+
+                    if(!req.params && !req.params.productId){
+                        console.log('no product id');
+                    }
+
+                    Product.findByIdAndUpdate('53de962328fd334e31b11730',
+                            {$push: {
+                                images: file._id
+                            }
+                        }, function(err, data){
+
+                        if (err){
+                            res.send(err);
+                        } else {
+                            res.send(data);
+                        }
+                    });
+
                 });
 
                 fs.createReadStream(file.path).pipe(writeStream);

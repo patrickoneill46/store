@@ -12,7 +12,6 @@ var conn = mongoose.createConnection('mongodb://' + dbURI + '/' + dbName);
 conn.on('error', console.error.bind(console, 'connection error'));
 conn.once('open', function (){
     console.log('connected to database');
-
 });
 
 var checkout = require('./routes/checkout')(mongoose, conn),
