@@ -24,10 +24,7 @@ module.exports = function(mongoose, conn) {
             "category": "String",
             "price": "number",
             "available": "Boolean",
-            "images": {
-                type: [],
-                default: []
-            }
+            "images": []
         });
 
     var Product = conn.model('Product', productSchema, 'products');
@@ -134,10 +131,13 @@ module.exports = function(mongoose, conn) {
 
                 var file = files.file[0],
                     type = file.headers['content-type'],
+                    bucketName = 'tasfirin',
                     imageData = fs.createReadStream(file.path),
+                    filename = uuid.v4() + getExtension(file.originalFilename),
                     params = {
-                        Bucket: 'tasfirin',
-                        Key: uuid.v4() + '.' + getExtension(file.originalFilename),
+                        Bucket: bucketName,
+                        ACL: 'public-read',
+                        Key: filename,
                         Body: imageData,
                         ContentType: type
                     };
@@ -148,6 +148,20 @@ module.exports = function(mongoose, conn) {
                     }
                     else {
                         console.log('successfully uploaded image to aws', data);
+
+                        Product.findByIdAndUpdate(req.params.productId, {$push: {images: 'http://' + bucketName + '.s3.amazonaws.com/' + filename}}, function(err, product){
+
+                            if (err){
+                                console.log('error', err);
+                                res.send(err);
+                            } else {
+                                console.log('updated', product);
+                                res.send({
+                                    status: 'udpated',
+                                    product: product
+                                });
+                            }
+                        });
                     }
 
                 });
@@ -164,6 +178,22 @@ module.exports = function(mongoose, conn) {
     }
 
     function getImage(req,res){
+
+        var params = {
+            Bucket: 'tasfirin',
+            Key: req.params.imageId
+        }
+
+        s3.getObject(params, function(err, data){
+
+            if (err) throw err;
+
+            else {
+                console.log(data);
+                res.send(data);
+            }
+
+        });
 
     }
 

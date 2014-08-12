@@ -37,6 +37,5 @@ app.route('/admin/product/:productId?')
 
 app.route('/image/:productId?')
     .post(admin.uploadImage)
-    .get(admin.getImage)
 
 app.listen(9000);

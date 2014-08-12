@@ -29,4 +29,9 @@
         <button type="submit" class="btn btn-primary" ng-disabled="progress.active(addProductForm)" ng-click="submitForm(addProductForm )">Save</button>
         <button class="btn btn-danger" ng-if="formData._id" ng-click="delete(formData._id)">Delete</button>
     </form>
+    <div class="images">
+        <div class="image-container" ng-repeat="image in formData.images track by $index">
+            <img ng-src="{{image}}">
+        </div>
+    </div>
 </div>
