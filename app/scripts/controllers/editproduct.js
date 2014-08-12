@@ -22,6 +22,7 @@ angular.module('storeApp')
             adminService.product.get({productId: $routeParams.productId}, function(response){
 
                 $scope.editProduct = response;
+                $scope.uploader.url += '/' + response._id;
             });
         }
 

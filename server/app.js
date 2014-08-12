@@ -2,9 +2,8 @@ var http = require('http'),
     express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    multiparty = require('multiparty'),
     mongoose = require('mongoose'),
-    Grid = require('gridfs-stream');
+    fs = require('fs');
 
 var dbURI = 'localhost', dbPort = 27017, dbName = 'store';
 var conn = mongoose.createConnection('mongodb://' + dbURI + '/' + dbName);

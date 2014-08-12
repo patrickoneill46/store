@@ -1,6 +1,12 @@
 var multiparty = require('multiparty'),
     fs = require('fs'),
-    Grid = require('gridfs-stream');
+    Grid = require('gridfs-stream'),
+    AWS = require('aws-sdk'),
+    uuid = require('node-uuid'),
+    fs = require('fs');
+
+// Create an S3 client
+var s3 = new AWS.S3();
 
 module.exports = function(mongoose, conn) {
 
@@ -12,8 +18,13 @@ module.exports = function(mongoose, conn) {
             "description": "String",
             "category": "String",
             "price": "number",
-            "available": "Boolean"
-        });
+            "available": "Boolean",
+            "images": {
+                type: [],
+                default: []
+            }
+        }),
+        gfs = Grid(conn.db, mongoose.mongo);
 
     var Product = conn.model('Product', productSchema, 'products');
 
@@ -103,7 +114,6 @@ module.exports = function(mongoose, conn) {
                     console.log(err);
                     res.send(err);
                 } else {
-                    console.log(products);
                     res.send(products);
                 }
             });
@@ -118,36 +128,20 @@ module.exports = function(mongoose, conn) {
 
             if(files) {
 
-                var file = files.file[0];
+                var file = files.file[0],
+                    imageData = fs.createReadStream(file.path);
 
-                var writeStream = gfs.createWriteStream({
-                    filename: 'my_file.txt',
-                    productId: req.params.productId || 'noproductid'
-                });
+                var params = {Bucket: 'tasfirin', Key: uuid.v4(), Body: imageData};
+                s3.putObject(params, function(err,data){
 
-                writeStream.on('close', function(file) {
-                    console.log('upload complete', file);
-
-                    if(!req.params && !req.params.productId){
-                        console.log('no product id');
+                    if(err){
+                        console.log(err);
+                    }
+                    else {
+                        console.log('successfully uploaded image to aws', data);
                     }
 
-                    Product.findByIdAndUpdate('53de962328fd334e31b11730',
-                            {$push: {
-                                images: file._id
-                            }
-                        }, function(err, data){
-
-                        if (err){
-                            res.send(err);
-                        } else {
-                            res.send(data);
-                        }
-                    });
-
                 });
-
-                fs.createReadStream(file.path).pipe(writeStream);
 
             } else {
 
@@ -161,11 +155,6 @@ module.exports = function(mongoose, conn) {
     }
 
     function getImage(req,res){
-        var readstream = gfs.createReadStream({
-            _id: '53e0cb4cca769eba50c151d0'
-        });
-
-        readstream.pipe(res);
 
     }
 

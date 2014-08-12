@@ -9,11 +9,7 @@
  */
 angular.module('storeApp')
   .controller('AdminCtrl', ['$scope', '$routeParams', 'adminService', function ($scope, $routeParams, adminService) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
         $scope.newProduct = {},
         $scope.editProduct = {};
 
@@ -23,8 +19,6 @@ angular.module('storeApp')
                 $scope.editProduct = response;
             })
         }
-
-
 
         $scope.categories = [
             'Starters',
@@ -47,13 +41,9 @@ angular.module('storeApp')
                 console.log(response);
 
             });
-
-
-            //adminService.product.$add()
         };
 
         $scope.updateItem = function(form){
-
 
             $scope.submitted = true;
             console.log('updating item...');
