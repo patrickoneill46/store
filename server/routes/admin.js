@@ -1,12 +1,17 @@
 var multiparty = require('multiparty'),
-    fs = require('fs'),
-    Grid = require('gridfs-stream'),
     AWS = require('aws-sdk'),
     uuid = require('node-uuid'),
-    fs = require('fs');
+    fs = require('fs'),
+    path = require('path'),
+    mime = require('mime');
 
 // Create an S3 client
 var s3 = new AWS.S3();
+
+function getExtension(filename) {
+    var ext = path.extname(filename||'').split('.');
+    return ext[ext.length - 1];
+}
 
 module.exports = function(mongoose, conn) {
 
@@ -23,8 +28,7 @@ module.exports = function(mongoose, conn) {
                 type: [],
                 default: []
             }
-        }),
-        gfs = Grid(conn.db, mongoose.mongo);
+        });
 
     var Product = conn.model('Product', productSchema, 'products');
 
@@ -129,9 +133,14 @@ module.exports = function(mongoose, conn) {
             if(files) {
 
                 var file = files.file[0],
-                    imageData = fs.createReadStream(file.path);
-
-                var params = {Bucket: 'tasfirin', Key: uuid.v4(), Body: imageData};
+                    type = file.headers['content-type'],
+                    imageData = fs.createReadStream(file.path),
+                    params = {
+                        Bucket: 'tasfirin',
+                        Key: uuid.v4() + '.' + getExtension(file.originalFilename),
+                        Body: imageData,
+                        ContentType: type
+                    };
                 s3.putObject(params, function(err,data){
 
                     if(err){
