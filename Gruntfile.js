@@ -34,20 +34,20 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
         express: {
-            files:  [ '<%= yeoman.app %>/scripts/{,*/}*.js'],
+            files:  [ 'server/{,*/}*.js'],
             tasks:  [ 'express:dev' ],
             options: {
-                livereload: '<%= connect.options.livereload %>',
+                livereload: true,
                 spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
             }
         },
-//      js: {
-//        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-//        tasks: ['newer:jshint:all'],
-//        options: {
-//          livereload: '<%= connect.options.livereload %>'
-//        }
-//      },
+      js: {
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint:all'],
+        options: {
+          livereload: true
+        }
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
@@ -66,7 +66,8 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.app %>/scripts/{,*/}*.js'
         ]
       }
     },
@@ -79,7 +80,14 @@ module.exports = function (grunt) {
               }
           }
       },
-
+      less: {
+         paths: ['bower_components/bootstrap/less/bootstrap.less'],
+          development: {
+              files: {
+                  '<%= yeoman.app %>/styles/main.css' : '<%= yeoman.app %>/styles/main.less'
+              }
+          }
+      },
 
     // The actual grunt server settings
     connect: {
@@ -385,6 +393,7 @@ module.exports = function (grunt) {
       grunt.task.run([
       'clean:server',
       'wiredep',
+      'less:development',
       'concurrent:server',
       'autoprefixer',
       //'connect:livereload',
