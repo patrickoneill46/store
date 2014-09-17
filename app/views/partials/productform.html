@@ -29,11 +29,15 @@
         <button type="submit" class="btn btn-primary" ng-disabled="progress.active(addProductForm)" ng-click="submitForm(addProductForm )">Save</button>
         <button class="btn btn-danger" ng-if="formData._id" ng-click="delete(formData._id)">Delete</button>
     </form>
-    <div class="rn-carousel-container">
-        <ul rn-carousel rn-carousel-buffered rn-carousel-slides class="image imagesCarousel">
+    <div class="rn-carousel-container" ng-if="formData.images.length > 0">
+        <ul rn-carousel rn-carousel-slides rn-carousel-index="slideIndex" class="image imagesCarousel">
             <li ng-repeat="image in formData.images track by $index"">
                 <div class="layer"><img ng-src="{{image}}"></div>
             </li>
         </ul>
+        <div class="thumbs ng-cloak">
+            <div class="thumb" ng-repeat="image in formData.images track by $index" ng-click="$parent.slideIndex = $index" ng-style="{'background-image': 'url(' + image + ')'}" ng-class="{'is-active': ($parent.slideIndex==$index)}">
+            </div>
+        </div>
     </div>
 </div>
