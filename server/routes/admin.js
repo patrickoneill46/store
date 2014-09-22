@@ -13,21 +13,21 @@ function getExtension(filename) {
     return ext[ext.length - 1];
 }
 
-module.exports = function(mongoose, conn) {
-
-    var Schema = mongoose.Schema,
-        ObjectId = Schema.ObjectId,
-        productSchema = new Schema({
-            //"_id": ObjectId,
-            "productName": "String",
-            "description": "String",
-            "category": "String",
-            "price": "number",
-            "available": "Boolean",
-            "images": []
-        });
-
-    var Product = conn.model('Product', productSchema, 'products');
+module.exports = function(Product) {
+//
+//    var Schema = mongoose.Schema,
+//        ObjectId = Schema.ObjectId,
+//        productSchema = new Schema({
+//            //"_id": ObjectId,
+//            "productName": "String",
+//            "description": "String",
+//            "category": "String",
+//            "price": "number",
+//            "available": "Boolean",
+//            "images": []
+//        });
+//
+//    var Product = conn.model('Product', productSchema, 'products');
 
     function addProduct (req, res){
 

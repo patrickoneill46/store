@@ -1,0 +1,23 @@
+// main dependency container, when it emits 'ready' you can
+// be sure the dependecies are set
+module.exports = function(opts) {
+    return new Environment(opts);
+}
+
+function Environment(opts) {
+    require('../config/database')(opts, function(err, mongoose) {
+
+        if(err) {
+            return this.emit("error", err);
+        }
+
+        this.mongoose = mongoose;
+        this.UserModel = require('../models/mongoose/user');
+        this.ProductModel = require('../models/mongoose/product');
+
+        this.emit("ready", this);
+
+    }.bind(this));
+}
+
+require("util").inherits(Environment, require("events").EventEmitter);
