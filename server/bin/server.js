@@ -23,7 +23,7 @@ var opts = {
     'hostname': argh.argv.hostname || process.env.TC_HOSTNAME || 'localhost',
     "db":{
         "mongo":{
-            "dbURI": process.env.MONGO_HOST || "87.124.38.3",
+            "dbURI": process.env.MONGO_HOST || "localhost",
             "dbPort": process.env.MONGO_PORT || "27017",
             "dbName": process.env.MONGO_NAME || "store"
         }
