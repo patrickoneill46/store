@@ -8,7 +8,7 @@
  * Controller of the storeApp
  */
 angular.module('storeApp')
-  .controller('ProductsCtrl', ['$scope', 'productsService', function ($scope, productsService) {
+  .controller('ProductsCtrl', ['$scope', 'productsService', 'cartService', function ($scope, productsService, cartService) {
 
 
     function getProducts(){
@@ -22,6 +22,22 @@ angular.module('storeApp')
         })
 
     }
+
+    $scope.addItem = function(item) {
+        cartService.addItem(item, 1);
+    };
+
+    $scope.incrementItem = function(item){
+        cartService.incrementItem(item.key, 1);
+    };
+
+    $scope.decrementItem = function(item){
+        cartService.decrementItem(item.key, 1);
+    };
+
+    $scope.removeItem = function(item){
+        cartService.removeItem(item);
+    };
 
     getProducts();
 

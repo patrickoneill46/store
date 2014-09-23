@@ -19,16 +19,16 @@ angular.module('storeApp')
 
         quantity = quantity || 1;
 
-        if (!cartContents[item.key]){
+        if (!cartContents[item._id]){
 
-           cartContents[item.key] = {
+           cartContents[item._id] = {
                item: item,
                quantity: quantity
            }
 
         } else {
 
-            incrementItem(item.key, quantity);
+            incrementItem(item._id, quantity);
 
         }
 
