@@ -1,6 +1,7 @@
 var mongoose = require("mongoose"),
     mongoosePaginate = require('mongoose-paginate'),
     ProductSchema = new mongoose.Schema({
+        "key": "String",
         "productName": "String",
         "description": "String",
         "category": "String",

@@ -3,6 +3,7 @@ var multiparty = require('multiparty'),
     uuid = require('node-uuid'),
     fs = require('fs'),
     path = require('path'),
+    shortid = require('shortid'),
     mime = require('mime');
 
 // Create an S3 client
@@ -32,6 +33,7 @@ module.exports = function(Product) {
     function addProduct (req, res){
 
         var product = new Product(req.body);
+        product.set('key', shortid.generate());
 
         product.save(function(err, product){
 
