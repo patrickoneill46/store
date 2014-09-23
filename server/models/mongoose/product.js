@@ -1,4 +1,5 @@
 var mongoose = require("mongoose"),
+    mongoosePaginate = require('mongoose-paginate'),
     ProductSchema = new mongoose.Schema({
         "productName": "String",
         "description": "String",
@@ -6,7 +7,9 @@ var mongoose = require("mongoose"),
         "price": "number",
         "available": "Boolean",
         "images": []
-    }),
-    Product = mongoose.model('Product', ProductSchema, 'products');
+    });
+
+ProductSchema.plugin(mongoosePaginate);
+var Product = mongoose.model('Product', ProductSchema, 'products');
 
 module.exports = Product;

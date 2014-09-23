@@ -36,7 +36,7 @@ module.exports = function(Product){
         });
     }
 
-    function  getOne(req, res){
+    function getOne(req, res){
 
         Product.find({_id: req.params.productId}, function(err, product){
 
