@@ -24,12 +24,11 @@ module.exports = function(Product){
 
             if (err){
                 console.log('Error: ', err);
-                res.send(err);
+                res.status(500).send(err);
             } else {
-                res.send({
-                    status: 200,
+                res.status(200).json({
                     pageCount: pageCount,
-                    bookings: paginatedProducts,
+                    products: paginatedProducts,
                     totalCount: totalCount
                 });
             }

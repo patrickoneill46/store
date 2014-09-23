@@ -51,6 +51,12 @@ module.exports = function(env){
     app.use(express.static(__dirname + '/../app/'));
     app.use('/bower_components', express.static(__dirname + '/../bower_components/'));
 
+    app.route('/products/')
+        .get(products.get);
+
+    app.route('/products/:productId?')
+        .get(products.getOne);
+
     app.route('/admin/product/:productId?')
         .post(admin.addProduct)
         .delete(admin.removeProduct)
