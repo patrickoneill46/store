@@ -1,18 +1,19 @@
 'use strict';
 
-describe('Service: products', function () {
+describe('Service: productsService', function () {
 
   // load the service's module
   beforeEach(module('storeApp'));
 
   // instantiate service
-  var products;
-  beforeEach(inject(function (_products_) {
-    products = _products_;
+  var productsService;
+  beforeEach(inject(function (_productsService_) {
+      productsService = _productsService_;
   }));
 
   it('should do something', function () {
-    expect(!!products).toBe(true);
+      console.error('products', productsService);
+    expect(!!productsService).toBe(true);
   });
 
 });

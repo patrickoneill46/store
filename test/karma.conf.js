@@ -26,7 +26,11 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
+      'bower_components/angular-file-upload/angular-file-upload.js',
+      'bower_components/angular-carousel/dist/angular-carousel.js',
+      'https://js.stripe.com/v2/',
       'app/scripts/**/*.js',
+      'app/scripts/app.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
