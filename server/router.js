@@ -50,6 +50,7 @@ module.exports = function(env){
     });
     app.use(express.static(__dirname + '/../app/'));
     app.use('/bower_components', express.static(__dirname + '/../bower_components/'));
+    app.use('/fonts', express.static(__dirname + '/../app/styles/fonts/'));
 
     app.route('/products/')
         .get(products.get);
