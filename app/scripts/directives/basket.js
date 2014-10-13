@@ -9,10 +9,15 @@
 angular.module('storeApp')
   .directive('basket', function () {
     return {
-      template: '<div></div>',
+      templateUrl: 'views/components/basket.html',
+      controller: 'BasketCtrl',
       restrict: 'E',
+      remove: true,
       link: function postLink(scope, element, attrs) {
-        element.text('this is the basket directive');
+//        element.text('this is the basket directive');
+
+
+
       }
     };
   });
