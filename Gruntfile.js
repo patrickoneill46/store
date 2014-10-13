@@ -36,10 +36,6 @@ module.exports = function (grunt) {
         express: {
             files:  [ 'server/{,*/}*.js'],
             tasks:  [ 'express:dev' ],
-            options: {
-                livereload: true,
-                spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. Without this option specified express won't be reloaded
-            }
         },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
@@ -54,14 +50,21 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        tasks: ['newer:copy:styles', 'autoprefixer'],
+        options: {
+            livereload: true
+        }
       },
       gruntfile: {
         files: ['Gruntfile.js']
       },
+      less: {
+          files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+          tasks: ['less']
+      },
       livereload: {
         options: {
-          livereload: '<%= connect.options.livereload %>'
+          livereload: '<%= express.dev.options.livereload %>'
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
@@ -75,7 +78,7 @@ module.exports = function (grunt) {
       express: {
           dev: {
               options: {
-                  script: 'server/app.js',
+                  script: 'server/bin/server.js',
                   livereload: true
               }
           }
@@ -88,53 +91,6 @@ module.exports = function (grunt) {
               }
           }
       },
-
-    // The actual grunt server settings
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35729
-      },
-      livereload: {
-        options: {
-          open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect.static(appConfig.app)
-            ];
-          }
-        }
-      },
-      test: {
-        options: {
-          port: 9001,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect.static('test'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect.static(appConfig.app)
-            ];
-          }
-        }
-      },
-      dist: {
-        options: {
-          open: true,
-          base: '<%= yeoman.dist %>'
-        }
-      }
-    },
 
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
