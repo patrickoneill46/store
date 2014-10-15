@@ -1,43 +1,41 @@
-<div class="productFormContainer">
-    <div id="messages" class="alert alert-success" ng-show="messages" ng-bind="messages"></div>
-    <div ng-show="progress.active()" style="color: red; font-size: 50px;">Sending&hellip;</div>
-    <form  name="addProductForm" novalidate role="form">
-        <div class="form-group">
+<div class="productFormContainer row">
+    <div id="messages" class="alert alert-success col-xs-12" ng-show="messages" ng-bind="messages"></div>
+    <div class="col-xs-12" ng-show="progress.active()" style="color: red; font-size: 50px; cl">Sending&hellip;</div>
+    <form name="addProductForm" novalidate role="form">
+        <div class="form-group col-xs-12 col-sm-6">
             <label for="product-name">Product Name</label>
             <span class="label label-danger" ng-show="submitted && addProductForm.productName.$error.required">Required!</span>
             <input type="text" class="form-control"  name="productName" ng-model="formData.productName" required>
         </div>
-        <div class="form-group">
+        <div class="form-group col-xs-12 col-sm-6">
             <label for="description">Description</label>
             <textarea class="form-control" name="description" ng-model="formData.description"></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group col-xs-12 col-sm-6">
             <label for="price">Price</label>
             <span class="label label-danger" ng-show="submitted && addProductForm.price.$error.required">Required!</span>
             <input type="text" class="form-control" name="price" ng-model="formData.price" required>
         </div>
-        <div class="form-group">
+        <div class="form-group col-xs-12 col-sm-6">
             <label for="category">Category</label>
             <span class="label label-danger" ng-show="submitted && addProductForm.category.$error.required">Required!</span>
             <select class="form-control" name="category" ng-model="formData.category" required>
                 <option ng-repeat="category in categories">{{category}}</option>
             </select>
         </div>
-        <div class="checkbox">
+        <div class="checkbox col-xs-12 col-sm-6">
             <label><input type="checkbox" name="available" ng-model="formData.available"> Available</label>
         </div>
-        <button type="submit" class="btn btn-primary" ng-disabled="progress.active(addProductForm)" ng-click="submitForm(addProductForm )">Save</button>
-        <button class="btn btn-danger" ng-if="formData._id" ng-click="delete(formData._id)">Delete</button>
+        <div class="row">
+            <button type="submit" class="btn btn-primary" ng-disabled="progress.active(addProductForm)" ng-click="submitForm(addProductForm )">Save</button>
+            <button class="btn btn-danger" ng-if="formData._id" ng-click="delete(formData._id)">Delete</button>
+        </div>
     </form>
-    <div class="rn-carousel-container" ng-if="formData.images.length > 0">
-        <ul rn-carousel rn-carousel-slides rn-carousel-index="slideIndex" class="image imagesCarousel">
-            <li ng-repeat="image in formData.images track by $index"">
+    <div class="rn-carousel-container col-xs-12" ng-if="formData.images.length > 0" ng-init="slideIndex=0">
+        <ul class="imagesCarousel col-xs-12" rn-carousel rn-carousel-index="slideIndex">
+            <li ng-repeat="image in formData.images track by $index">
                 <div class="layer"><img ng-src="{{image}}"></div>
             </li>
         </ul>
-        <div class="thumbs ng-cloak">
-            <div class="thumb" ng-repeat="image in formData.images track by $index" ng-click="$parent.slideIndex = $index" ng-style="{'background-image': 'url(' + image + ')'}" ng-class="{'is-active': ($parent.slideIndex==$index)}">
-            </div>
-        </div>
     </div>
 </div>
