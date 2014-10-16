@@ -1,14 +1,22 @@
-<div id="producstContainer" class="col-xs-12">
-    <ul ng-repeat="product in products" class="col-xs-8">
-        <li>
-            <p>{{product.name}}</p>
-            <p>{{product.price}}</p>
-            <div class="btn-success btn" ng-click="addItem(product)">Add</div>
-            <div class="btn-danger btn" ng-click="decrementItem(product)">Remove</div>
-        </li>
-    </ul>
-    <ul class="col-xs-4" ng-repeat="cartItem in cartContents">
-        <span>{{cartItem.item.name}}</span> - <span>{{cartItem.item.price}}</span> - <span>{{cartItem.quantity}}</span>
-    </ul>
+<div class="row">
+    <div id="producstContainer" class="col-xs-12">
+        <ul ng-repeat="product in products" class="col-xs-12 col-sm-6 col-lg-4 list list-unstyled">
+            <li>
+                <div class="productHeader row">
+                    <p class="col-xs-12"><span>{{product.productName}}</span> - {{product.price}}</p>
+                </div>
+                <div clas="row">
+                    <img ng-src="{{product.images[0]}}" class="col-xs-12 col-sm-6">
+                    <p class="col-xs-12 col-sm-6">{{product.description}}</p>
+                </div>
+                <div class="row">
+                    <div class="btn-success btn" ng-click="addItem(product)">Add</div>
+                    <div class="btn-danger btn" ng-click="decrementItem(product)">Remove</div>
+                </div>
+            </li>
+        </ul>
+        <ul class="col-xs-4" ng-repeat="cartItem in cartContents">
+            <span>{{cartItem.item.name}}</span> - <span>{{cartItem.item.price}}</span> - <span>{{cartItem.quantity}}</span>
+        </ul>
+    </div>
 </div>
-
