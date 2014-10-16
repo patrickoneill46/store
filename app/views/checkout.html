@@ -1,29 +1,47 @@
-<form method="POST" id="checkout" ng-submit="processPayment($event)">
-    <span class="payment-errors"></span>
-
-    <div class="form-row">
-        <label>
-            <span>Card Number</span>
-            <input type="text" size="20" data-stripe="number" ng-model="number"/>
-        </label>
+<div class="basketContainer row">
+    <h2 class="col-xs-12">Your Basket</h2>
+    <table class="col-xs-12" ng-hide="cartContents.items.length">
+        <thead>
+            <th class="col-xs-4">Item</th>
+            <th class="col-xs-2">Quantity</th>
+            <th class="col-xs-3">Price</th>
+            <th class="col-xs-3">Subtotal</th>
+        </thead>
+        <tr ng-repeat="cartItem in cartContents.items">
+            <td class="col-xs-4">{{cartItem.item.productName}}</td>
+            <td class="col-xs-2">{{cartItem.quantity}}</td>
+            <td class="col-xs-3">{{cartItem.item.price}}</td>
+            <td class="col-xs-3">{{cartItem.item.price * cartItem.quantity}}</td>
+        </tr>
+    </table>
+    <div class="col-xs-12">
+        <h3>Total <span class="pull-right">{{cartContents.totalPrice}}</span></h3>
     </div>
-
-    <div class="form-row">
-        <label>
-            <span>CVC</span>
-            <input type="text" size="4" data-stripe="cvc" ng-model="cvc"/>
-        </label>
-    </div>
-
-    <div class="form-row">
-        <label>
-            <span>Expiration (MM/YYYY)</span>
-            <input type="text" size="2" data-stripe="exp-month" ng-model="expMonth"/>
-        </label>
-        <span> / </span>
-        <input type="text" size="4" data-stripe="exp-year" ng-model="expYear"/>
-    </div>
-
-    <button type="submit">Submit Payment</button>
-</form>
-<p>{{processingStatus}}</p>
+</div>
+<div class="paymentDetailsContainer">
+    <form method="POST" id="checkout" ng-submit="processPayment($event)">
+        <span class="payment-errors"></span>
+        <div class="form-row">
+            <label>
+                <span>Card Number</span>
+                <input type="text" size="20" data-stripe="number" ng-model="number"/>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span>CVC</span>
+                <input type="text" size="4" data-stripe="cvc" ng-model="cvc"/>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span>Expiration (MM/YYYY)</span>
+                <input type="text" size="2" data-stripe="exp-month" ng-model="expMonth"/>
+            </label>
+            <span> / </span>
+            <input type="text" size="4" data-stripe="exp-year" ng-model="expYear"/>
+        </div>
+        <button type="submit">Submit Payment</button>
+    </form>
+    <p>{{processingStatus}}</p>
+</div>

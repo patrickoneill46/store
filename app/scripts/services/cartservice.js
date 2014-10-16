@@ -12,16 +12,28 @@ angular.module('storeApp')
     // Service logic
     // ...
 
-    var cartContents = {};
+    var cartContents = {
+        numItems : 0,
+        totalPrice : 0,
+        items: {}
+    };
+
+
+        $rootScope.$watchCollection('cartContents.items', function(newVal, oldVal){
+
+            console.log(newVal, oldVal);
+
+        });
+
     $rootScope.cartContents = cartContents;
 
     function addItem(item, quantity){
 
         quantity = quantity || 1;
 
-        if (!cartContents[item._id]){
+        if (!cartContents.items[item._id]){
 
-           cartContents[item._id] = {
+           cartContents.items[item._id] = {
                item: item,
                quantity: quantity
            }
@@ -37,7 +49,8 @@ angular.module('storeApp')
     function incrementItem(itemKey, incrementAmount){
 
         incrementAmount = incrementAmount || 1;
-        cartContents[itemKey].quantity += incrementAmount;
+        cartContents.items[itemKey].quantity += incrementAmount;
+        calcPrice();
 
     }
 
@@ -45,18 +58,40 @@ angular.module('storeApp')
 
         decrementAmount = decrementAmount || 1;
 
-        if (cartContents[itemKey].quantity <= decrementAmount){
+        if (cartContents.items[itemKey]){
+            if (cartContents.items[itemKey].quantity <= decrementAmount){
+                removeItem(itemKey);
+            }
+            else {
+                cartContents.items[itemKey].quantity -= decrementAmount;
+            }
 
-            removeItem(itemKey);
-        }
-        else {
-            cartContents[itemKey].quantity -= decrementAmount;
+            calcPrice();
         }
     }
 
     function removeItem (itemKey){
 
-        delete cartContents[itemKey];
+        delete cartContents.items[itemKey];
+    }
+
+    function calcPrice(){
+
+        function multiplyTwoNums(a,b){
+            return Math.round(a*b*100)/100;
+        }
+
+        var totalPrice = 0;
+
+        for (var cartIndex in cartContents.items){
+
+            var cartItem = cartContents.items[cartIndex];
+
+            totalPrice += multiplyTwoNums(cartItem.quantity, cartItem.item.price);
+        }
+
+        cartContents.totalPrice = totalPrice;
+
     }
 
 
