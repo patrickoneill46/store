@@ -1,0 +1,9 @@
+{
+    "db":{
+        "mongo":{
+            "dbURI": "localhost",
+            "dbPort": "27017",
+            "dbName": "store_test"
+        }
+    }
+}
