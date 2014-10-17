@@ -1,6 +1,7 @@
 <div class="basketWrapper" ng-init="showBasket=false">
     <button type="button" class="btn btn-default" ng-click="showBasket = !showBasket">
         <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span class="numItemsBadge" ng-hide="cartContents.numItems < 1">{{cartContents.numItems}}</span>
     </button>
     <div class="basketContainer ng-hide" ng-show="showBasket">
         <h4>Your basket</h4>

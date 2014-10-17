@@ -18,22 +18,15 @@ angular.module('storeApp')
         items: {}
     };
 
-
-        $rootScope.$watchCollection('cartContents.items', function(newVal, oldVal){
-
-            console.log(newVal, oldVal);
-
-        });
-
     $rootScope.cartContents = cartContents;
 
     function addItem(item, quantity){
 
         quantity = quantity || 1;
 
-        if (!cartContents.items[item._id]){
+        if (!cartContents.items[item.key]){
 
-           cartContents.items[item._id] = {
+           cartContents.items[item.key] = {
                item: item,
                quantity: quantity
            }
@@ -44,13 +37,14 @@ angular.module('storeApp')
 
         }
 
+        calcPrice();
+
     }
 
     function incrementItem(itemKey, incrementAmount){
 
         incrementAmount = incrementAmount || 1;
         cartContents.items[itemKey].quantity += incrementAmount;
-        calcPrice();
 
     }
 
@@ -81,21 +75,19 @@ angular.module('storeApp')
             return Math.round(a*b*100)/100;
         }
 
-        var totalPrice = 0;
+        var totalPrice = 0, numItems = 0;
 
         for (var cartIndex in cartContents.items){
 
             var cartItem = cartContents.items[cartIndex];
-
             totalPrice += multiplyTwoNums(cartItem.quantity, cartItem.item.price);
+            numItems++;
         }
 
         cartContents.totalPrice = totalPrice;
+        cartContents.numItems = numItems;
 
     }
-
-
-
     // Public API here
     return {
        addItem: addItem,
