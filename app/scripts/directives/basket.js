@@ -14,10 +14,11 @@ angular.module('storeApp')
       restrict: 'E',
       remove: true,
       link: function postLink(scope, element, attrs) {
-//        element.text('this is the basket directive');
 
-
-
+        scope.$on('$routeChangeStart', function (){
+          scope.showBasket = false;
+        });
+        
       }
     };
   });
