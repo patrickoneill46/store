@@ -13,7 +13,9 @@ angular.module('storeApp')
       restrict: 'E',
       remove: true,
       link: function postLink(scope, element, attrs) {
-        // element.text('this is the product directive');
+
+        scope.addItem = scope.$parent.addItem;
+        scope.decrementItem = scope.$parent.decrementItem;
       },
       scope: {
       	product: '='
