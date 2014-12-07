@@ -1,0 +1,20 @@
+
+.triangle(@size: 10px, @color: @beige, @borderColor: @grey){
+
+	transform: rotate(45deg);
+	position: absolute;
+	top: -@size/2 - 1;
+	right: @size;
+	height: @size;
+	width: @size;
+	background-color: @beige;
+	border: solid 1px @borderColor;
+	border-right:none;
+	border-bottom: none;
+}
+
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}

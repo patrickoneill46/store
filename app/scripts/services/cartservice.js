@@ -8,7 +8,7 @@
  * Factory in the storeApp.
  */
 angular.module('storeApp')
-  .factory('cartService', function ($rootScope, $timeout) {
+  .factory('cartService', function ($rootScope) {
     // Service logic
     // ...
 
@@ -35,10 +35,11 @@ angular.module('storeApp')
             cartContents.items[item.key] = {
                 item: item,
                 quantity: incrementAmount
-            }
+            };
+            cartContents.numItems++;
+        } else {
+            cartContents.items[item.key].quantity += incrementAmount;
         }
-        cartContents.items[item.key].quantity += incrementAmount;
-
     }
 
     function decrementItem(itemKey, decrementAmount){
@@ -60,6 +61,7 @@ angular.module('storeApp')
     function removeItem (itemKey){
 
         delete cartContents.items[itemKey];
+        cartContents.numItems--;
     }
 
     function calcPrice(){
@@ -68,17 +70,17 @@ angular.module('storeApp')
             return Math.round(a*b*100)/100;
         }
 
-        var totalPrice = 0, numItems = 0;
+        var totalPrice = 0;
 
         for (var cartIndex in cartContents.items){
 
             var cartItem = cartContents.items[cartIndex];
             totalPrice += multiplyTwoNums(cartItem.quantity, cartItem.item.price);
-            numItems++;
+            // numItems++;
         }
 
         cartContents.totalPrice = totalPrice;
-        cartContents.numItems = numItems;
+        // cartContents.numItems = numItems;
 
     }
     // Public API here

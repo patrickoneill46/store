@@ -4,12 +4,22 @@
 
   .basketContainer {
 
-    background-color: blue;
-    min-width: 100px;
-    min-height: 100px;
+    @borderWidth: 1px;
+    @triangleSize: 16px;
+
+    background-color: @beige;
+    border: @borderWidth solid @grey;
+    padding: 1em;
     position: absolute;
-    z-index: 5;
-    opacity: 1;
+    right: 0px;
+    z-index: @popover-z-index;
+    margin-top: @triangleSize/2 + @borderWidth*2;
+    .border-radius(3px);
+    .triangle {
+      .triangle(@triangleSize, @beige);
+      z-index: @popover-z-index-triangle;
+    }
+
 
     &.ng-hide {
       opacity: 0;
@@ -25,5 +35,24 @@
 
       transition:0.2s linear all;
     }
+
+    ul {
+      img {
+        width: 50px;
+        height: auto;
+      }
+    }
+
+    button {
+      background-color: @green;
+      color: #fff;
+
+      &:hover {
+        color: @green;
+        background-color: #fff;
+      }
+    }
   }
+
+
 }

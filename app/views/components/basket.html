@@ -1,19 +1,26 @@
 <div class="basketWrapper" ng-init="showBasket=false">
     <button type="button" class="btn btn-default" ng-click="showBasket = !showBasket">
         <span class="glyphicon glyphicon-shopping-cart"></span>
-        <span class="numItemsBadge" ng-hide="cartContents.numItems < 1">{{cartContents.numItems}}</span>
+        <span class="numItemsBadge" ng-hide="cartContents.numItems==0">{{cartContents.numItems}}</span>
     </button>
     <div class="basketContainer ng-hide" ng-show="showBasket">
+        <div class="triangle"></div>
         <h4>Your basket</h4>
         <ul>
             <li ng-repeat="product in cartContents.items">
-                {{product.item.productName}}
+                <img ng-src='{{product.item.images[0]}}' class="pull-left">
+                <div class="pull-left">
+                    <p>{{product.item.productName}}<p>
+                    <p>Quantity: {{product.quantity}}</p>
+                </div>
+                <a ng-click="removeItem(product.item.key)"><span class="glyphicon glyphicon-remove"></span></a>
             </li>
         </ul>
         <div class="row">
-            <a href="#/checkout" class="col-xs-12">
+            <a href="#/checkout" class="col-xs-12" ng-hide="cartContents.numItems==0">
                 <button type="button" class="btn btn-default">Proceed to Checkout</button>
             </a>
+            <p ng-hide="cartContents.numItems!=0">You don't have any items in your basket!</p>
         </div>
     </div>
 </div>
