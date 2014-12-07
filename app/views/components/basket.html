@@ -6,8 +6,8 @@
     <div class="basketContainer ng-hide" ng-show="showBasket">
         <h4>Your basket</h4>
         <ul>
-            <li ng-repeat="basketItem in basket">
-                {{basketItem.productName}}
+            <li ng-repeat="product in cartContents.items">
+                {{product.item.productName}}
             </li>
         </ul>
         <div class="row">
