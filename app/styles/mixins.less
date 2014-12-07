@@ -18,3 +18,22 @@
      -moz-border-radius: @radius;
           border-radius: @radius;
 }
+
+.show-hide(){
+
+	&.ng-hide {
+      opacity: 0;
+    }
+
+    &.ng-hide-remove,
+    &.ng-hide-add
+    {
+      transition:0s linear all;
+    }
+
+    &.ng-hide-remove-active, &.ng-hide-add-active {
+
+      transition:0.2s linear all;
+    }
+
+}
