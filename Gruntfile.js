@@ -49,7 +49,7 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+        files: ['<%= yeoman.app %>/styles/main.css'],
         tasks: ['newer:copy:styles', 'autoprefixer'],
         options: {
             livereload: true
@@ -84,12 +84,18 @@ module.exports = function (grunt) {
           }
       },
       less: {
-         paths: ['bower_components/bootstrap/less/bootstrap.less'],
-          development: {
-              files: {
-                  '<%= yeoman.app %>/styles/main.css' : '<%= yeoman.app %>/styles/main.less'
-              }
-          }
+        paths: ['bower_components/bootstrap/less/bootstrap.less'],
+        development: {
+            files: {
+                '<%= yeoman.app %>/styles/main.css' : '<%= yeoman.app %>/styles/main.less'
+            },
+            options: {
+              compress: true,
+              sourceMap: true,
+              sourceMapFilename: '<%= yeoman.app %>/styles/main.css.map',
+              sourceMapURL: 'main.css.map',  
+            }
+        }
       },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -373,6 +379,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'less',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
