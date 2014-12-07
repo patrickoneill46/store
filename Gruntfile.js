@@ -84,7 +84,7 @@ module.exports = function (grunt) {
           }
       },
       less: {
-        paths: ['bower_components/bootstrap/less/bootstrap.less'],
+        paths: ['<%= yeoman.app %>/styles/main.less'],
         development: {
             files: {
                 '<%= yeoman.app %>/styles/main.css' : '<%= yeoman.app %>/styles/main.less'
