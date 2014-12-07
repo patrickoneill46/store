@@ -23,28 +23,21 @@ angular.module('storeApp')
     function addItem(item, quantity){
 
         quantity = quantity || 1;
-
-        if (!cartContents.items[item.key]){
-
-           cartContents.items[item.key] = {
-               item: item,
-               quantity: quantity
-           }
-
-        } else {
-
-            incrementItem(item._id, quantity);
-
-        }
-
+        incrementItem(item, quantity);
         calcPrice();
 
     }
 
-    function incrementItem(itemKey, incrementAmount){
+    function incrementItem(item, incrementAmount){
 
-        incrementAmount = incrementAmount || 1;
-        cartContents.items[itemKey].quantity += incrementAmount;
+        if (!cartContents.items[item.key]){
+
+            cartContents.items[item.key] = {
+                item: item,
+                quantity: incrementAmount
+            }
+        }
+        cartContents.items[item.key].quantity += incrementAmount;
 
     }
 
