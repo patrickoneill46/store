@@ -1,0 +1,20 @@
+<div class="orderContainer ">
+    <h2 class="col-xs-12">Your Order</h2>
+    <table class="col-xs-12" ng-hide="cartContents.items.length">
+        <thead>
+            <th class="col-xs-4">Item</th>
+            <th class="col-xs-2">Quantity</th>
+            <th class="col-xs-3">Price</th>
+            <th class="col-xs-3">Subtotal</th>
+        </thead>
+        <tr ng-repeat="cartItem in cartContents.items">
+            <td class="col-xs-4">{{cartItem.item.productName}}</td>
+            <td class="col-xs-2">{{cartItem.quantity}}</td>
+            <td class="col-xs-3">{{cartItem.item.price}}</td>
+            <td class="col-xs-3">{{cartItem.item.price * cartItem.quantity}}</td>
+        </tr>
+    </table>
+    <div class="col-xs-12">
+        <h3>Total <span class="pull-right">{{cartContents.totalPrice}}</span></h3>
+    </div>
+</div>
