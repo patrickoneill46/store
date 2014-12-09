@@ -1,7 +1,24 @@
 <div class="row">
+	<div id="searchContainer" class="col-xs-12">
+        <form>
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="category">Category</label>
+                <span class="label label-danger" ng-show="submitted && addProductForm.category.$error.required">Required!</span>
+                <div class="input-group-btn">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="clearSearch('category')">Clear</button>
+                    </span>
+                </div>
+                <select class="form-control" name="category" ng-model="search.category" required>
+                    <option ng-repeat="category in categories">{{category}}</option>
+                </select>
+                {{search.category}}
+            </div>
+        </form>
+	</div>
     <div id="productsContainer" class="col-xs-12">
         <ul class="list list-unstyled">
-            <li ng-repeat="product in products" class="col-xs-12 col-sm-6 col-md-4">
+            <li ng-repeat="product in products | filter: {category: search.category}" class="col-xs-12 col-sm-6 col-md-4">
                 <product product="product"></product>
             </li>
         </ul>
