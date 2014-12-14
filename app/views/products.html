@@ -1,20 +1,26 @@
 <div class="row">
-	<div id="searchContainer" class="col-xs-12">
+	<div class="searchContainer" class="col-xs-12">
         <form>
             <div class="form-group col-xs-12 col-sm-6">
-                <label for="category">Category</label>
+                <label for="category">Search Menu: </label>
                 <span class="label label-danger" ng-show="submitted && addProductForm.category.$error.required">Required!</span>
                 <div class="input-group-btn">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-click="clearSearch('category')">Clear</button>
-                    </span>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+                      <input type="text" class="form-control">
+                    </div><!-- /input-group -->
                 </div>
-                <select class="form-control" name="category" ng-model="search.category" required>
-                    <option ng-repeat="category in categories">{{category}}</option>
-                </select>
-                {{search.category}}
             </div>
         </form>
+
+        <div class="col-xs-12 col-sm-6">
+            <label for="category">Filter by category</label>
+            <div class="btn-group" role="group" aria-label="...">
+              <button type="button" class="btn btn-default" ng-repeat="category in categories" ng-click="search.category = category">{{category}}</button>
+            </div>
+        </div>
 	</div>
     <div id="productsContainer" class="col-xs-12">
         <div class="row">
