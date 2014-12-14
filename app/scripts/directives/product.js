@@ -12,6 +12,7 @@ angular.module('storeApp')
       templateUrl: 'views/components/product.html',
       restrict: 'E',
       remove: true,
+      replace: true,
       link: function postLink(scope, element, attrs) {
 
         scope.addItem = scope.$parent.addItem;
