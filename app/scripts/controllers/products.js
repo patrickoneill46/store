@@ -19,7 +19,12 @@ angular.module('storeApp')
     ];
 
     $scope.search = {
+
     };
+
+    $scope.clearCategory = function(){
+        $scope.search.category && delete $scope.search.category;
+    }
 
     function getProducts(){
 
