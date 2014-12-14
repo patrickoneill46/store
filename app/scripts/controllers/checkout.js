@@ -10,8 +10,7 @@
 angular.module('storeApp')
   .controller('CheckoutCtrl', function ($scope, $http) {
 
-
-    Stripe.setPublishableKey('pk_test_4SFQ174nwDH7Edae2c5sFmAi');
+    Stripe && Stripe.setPublishableKey('pk_test_4SFQ174nwDH7Edae2c5sFmAi');
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
