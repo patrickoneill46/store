@@ -7,7 +7,7 @@ var passport = require('passport'),
     guid = require('guid');
 
 module.exports = function(env){
-    var products = require("./routes/products")(env.ProductModel),
+    var checkout = require('./routes/checkout')(), products = require("./routes/products")(env.ProductModel),
         user = require("./routes/user")(env.UserModel),
         admin = require("./routes/admin")(env.ProductModel);
 
@@ -22,12 +22,12 @@ module.exports = function(env){
     var app = express();
 
     //set up middleware(s)
-    app.use(session({
-        secret: '1234567890QWERTY',
-        genid: function(req) {
-            return guid.raw(); // use UUIDs for session IDs
-        }
-    }));
+//    app.use(session({
+//        secret: '1234567890QWERTY',
+//        genid: function(req) {
+//            return guid.raw(); // use UUIDs for session IDs
+//        }
+//    }));
 //    app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
@@ -45,7 +45,7 @@ module.exports = function(env){
     //configure route(s)
     app.route('/').get(function(req,res){
 
-        res.sendfile(path.resolve(__dirname + '/../app/index.html'));
+        res.sendFile(path.resolve(__dirname + '/../app/index.html'));
 
     });
     app.use(express.static(__dirname + '/../app/'));
@@ -65,7 +65,10 @@ module.exports = function(env){
         .get(admin.getProduct);
 
     app.route('/image/:productId?')
-        .post(admin.uploadImage)
+        .post(admin.uploadImage);
+
+    app.route('/checkout/')
+        .post(checkout.processPayment);
 
     return app;
 
